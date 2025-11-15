@@ -21,6 +21,7 @@ import {
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+import VendaiCreditWidget from '@/components/VendaiCreditWidget';
 
 const billingOptions = ['Same as shipping Address', 'Use a different billing address'];
 
@@ -77,6 +78,16 @@ class CheckoutPage extends Component {
       },
 
       discountCode: 'CUSTOMCOMMERCE',
+
+      {/* VendAI Net Terms Credit - Instant B2B Financing */}
+      <VendaiCreditWidget 
+        amount={total} 
+        currency="KES"
+        onApproved={(creditLine) => {
+          // Credit line automatically applied
+          console.log('VendAI credit approved:', creditLine);
+        }}
+      />
 
       selectedGateway: 'test_gateway',
       loading: false,
