@@ -21,6 +21,7 @@ import {
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+import VendaiCreditWidget from '@/components/VendaiCreditWidget';
 
 const billingOptions = ['Same as shipping Address', 'Use a different billing address'];
 
@@ -107,6 +108,16 @@ class CheckoutPage extends Component {
 
     this.updateCustomerFromRedux();
     // on initial mount generate checkout token object from the cart,
+
+      {/* VendAI Net Terms Credit - Instant B2B Financing */}
+      <VendaiCreditWidget 
+        amount={total} 
+        currency="KES"
+        onApproved={(creditLine) => {
+          // Credit line automatically applied
+          console.log('VendAI credit approved:', creditLine);
+        }}
+      />
     // and then subsequently below in componentDidUpdate if the props.cart.total_items has changed
     this.generateToken();
   }
